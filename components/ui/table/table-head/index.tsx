@@ -1,5 +1,5 @@
-import clsx from "clsx";
-import { ReactNode } from "react";
+import { cn } from '@/utils/helper';
+import { ReactNode } from 'react';
 
 interface TableHeaderProps {
   children: ReactNode;
@@ -7,13 +7,13 @@ interface TableHeaderProps {
 }
 
 export default function TableHead({
-  className = "",
+  className = '',
   ...props
 }: TableHeaderProps) {
   return (
     <th
-      className={clsx(
-        "py-3 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
+      className={cn(
+        'px-4 py-3 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
         className
       )}
       {...props}

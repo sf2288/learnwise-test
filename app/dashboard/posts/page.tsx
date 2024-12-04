@@ -1,22 +1,35 @@
-import PostsTable from "@/components/pages/posts-table";
-import CreatePost from "@/components/pages/posts-table/create-post-button";
-import Card from "@/components/ui/card";
-import CardContent from "@/components/ui/card-content";
-import CardDescription from "@/components/ui/card-description";
-import CardHeader from "@/components/ui/card-header";
-import CardTitle from "@/components/ui/card-title";
-import { GetPostsAction } from "./action";
-import { IPost } from "./types";
+import Container from '@/components/container';
+import PostsTable from '@/components/pages/posts/posts-table';
+import { CONSTANTS } from '@/utils/constants';
+import { Suspense } from 'react';
+import { GetPostsAction } from './action';
+import { SearchInput } from './search-input';
+import { IPost } from './types';
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export const metadata = {
+  title: 'Posts',
+  description: 'Posts',
+  twitter: {
+    card: 'summary',
+    title: 'Posts',
+    description: 'Posts'
+  }
+};
+
 export default async function Posts({ searchParams }: Props) {
   const urlSearchParams = await searchParams;
   const page = Number(urlSearchParams.page) || 1;
-  const { posts: fetchedPosts } = (await GetPostsAction(page)) as {
+  const { posts: fetchedPosts, total } = (await GetPostsAction(page)) as {
     posts: IPost[];
+    total: number;
   };
+
+  const totalPages = Math.ceil(total / CONSTANTS.PER_PAGE);
+
   const search = urlSearchParams.search as string;
   const filteredPosts = search
     ? fetchedPosts.filter((post) =>
@@ -25,21 +38,22 @@ export default async function Posts({ searchParams }: Props) {
     : fetchedPosts;
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="space-y-2">
-            <CardTitle>Posts</CardTitle>
-            <CardDescription>
-              Manage your posts and view details.
-            </CardDescription>
-          </div>
-          <CreatePost />
+    <Container>
+      <div className="my-6 flex size-full flex-col gap-4 px-4">
+        <div className="flex justify-end">
+          <Suspense fallback={'Loading...'}>
+            <div className="w-full max-w-lg">
+              <SearchInput placeholder="Search by title..." />
+            </div>
+          </Suspense>
         </div>
-      </CardHeader>
-      <CardContent className="p-6 relative w-full overflow-auto">
-        <PostsTable filteredPosts={filteredPosts} />
-      </CardContent>
-    </Card>
+
+        <PostsTable
+          total={total}
+          totalPages={totalPages}
+          filteredPosts={filteredPosts}
+        />
+      </div>
+    </Container>
   );
 }

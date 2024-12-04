@@ -1,9 +1,9 @@
-import { CONSTANTS } from "@/utils/constants";
-import { getServerCookie } from "@/utils/server-cookie";
-import Container from "../container";
-import CustomLink from "../custom-link";
-import LogoIcon from "../icon/logo";
-import Logout from "../logout";
+import { CONSTANTS, PAGES } from '@/utils/constants';
+import { getServerCookie } from '@/utils/server-cookie';
+import Container from '../container';
+import CustomLink from '../custom-link';
+import LogoIcon from '../icon/logo';
+import Logout from '../logout';
 
 export default async function Header() {
   const isAuth = await getServerCookie(CONSTANTS.TOKEN_KEY_NAME);
@@ -13,15 +13,14 @@ export default async function Header() {
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
       <Container>
-        <div className="p-4 flex justify-between items-center w-full">
+        <div className="flex w-full items-center justify-between p-4">
           <CustomLink
-            href="/"
-            className="text-2xl font-bold flex items-center gap-2"
+            href={PAGES.HOME.url}
+            className="flex items-center gap-2 text-base font-bold sm:text-xl md:text-2xl"
           >
             <LogoIcon />
             {CONSTANTS.SITE_NAME}
           </CustomLink>
-
           <Logout />
         </div>
       </Container>

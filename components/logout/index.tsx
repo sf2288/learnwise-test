@@ -1,21 +1,19 @@
-"use client";
+'use client';
 
-import { LogoutAction } from "@/app/login/action";
-import { useCustomRouter } from "@/hooks/use-next-navigation";
-import { PAGES } from "@/utils/constants";
-import { useState } from "react";
-import Button from "../ui/button";
+import { LogoutAction } from '@/app/login/action';
+import { useCustomRouter } from '@/hooks/use-next-navigation';
+import { PAGES } from '@/utils/constants';
+import { useState } from 'react';
+import { Icons } from '../Icons';
+import Label from '../ui/label';
+
+const LogoutIcon = Icons['logout'];
 
 const Logout = () => {
   const router = useCustomRouter();
   const [isLoading, setLoading] = useState(false);
-
   return (
-    <Button
-      type="submit"
-      disabled={isLoading}
-      aria-disabled={isLoading}
-      variant="destructive"
+    <Label
       onClick={() => {
         setLoading(true);
         LogoutAction().then(() => {
@@ -23,10 +21,11 @@ const Logout = () => {
           setLoading(false);
         });
       }}
-      loading={isLoading}
+      className="flex cursor-pointer items-center gap-2 text-destructive"
     >
-      {isLoading ? "Logging out..." : "Logout"}
-    </Button>
+      {isLoading ? 'Logging out...' : 'Logout'}
+      <LogoutIcon className="size-4" />
+    </Label>
   );
 };
 

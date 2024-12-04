@@ -1,5 +1,5 @@
-import clsx from "clsx";
-import { ReactNode } from "react";
+import { cn } from '@/utils/helper';
+import { ReactNode } from 'react';
 
 interface CardFooterProps {
   children: ReactNode;
@@ -7,8 +7,8 @@ interface CardFooterProps {
 }
 
 export default function CardFooter({
-  className = "",
+  className = '',
   ...props
 }: CardFooterProps) {
-  return <div className={clsx("flex items-center", className)} {...props} />;
+  return <div className={cn('flex items-center', className)} {...props} />;
 }

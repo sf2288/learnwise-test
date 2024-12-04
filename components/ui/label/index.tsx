@@ -1,5 +1,5 @@
-import { LabelHTMLAttributes, forwardRef } from "react";
-import clsx from "clsx";
+import { cn } from '@/utils/helper';
+import { LabelHTMLAttributes, forwardRef } from 'react';
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   className?: string;
@@ -11,7 +11,7 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
     return (
       <label
         ref={ref}
-        className={clsx("block text-sm font-medium", className)}
+        className={cn('block text-sm font-medium', className)}
         {...props}
       >
         {children}
@@ -21,6 +21,6 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
   }
 );
 
-Label.displayName = "Label";
+Label.displayName = 'Label';
 
 export default Label;

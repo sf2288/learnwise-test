@@ -1,15 +1,15 @@
+import { twMerge } from 'tailwind-merge';
+
 export default function Container({
   children,
-  className,
+  className = ''
 }: {
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div
-      className={`container mx-auto flex justify-between items-center ${className}`}
-    >
-      {children}
-    </div>
+  const containerClasses = twMerge(
+    'container mx-auto flex justify-between items-center',
+    className // External className passed via props
   );
+  return <div className={containerClasses}>{children}</div>;
 }

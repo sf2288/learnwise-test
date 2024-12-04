@@ -3,4 +3,10 @@ export interface IPost {
   title: string;
   body: string;
   userId: number;
+  user?: {
+    id?: number;
+    name?: string;
+    email?: string;
+    website: string;
+  };
 }

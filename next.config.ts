@@ -1,7 +1,14 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    minimumCacheTTL: 3600, // 1 hour
+    remotePatterns: [
+      {
+        hostname: 'media.istockphoto.com'
+      }
+    ]
+  }
 };
 
 export default nextConfig;
