@@ -21,7 +21,7 @@ const Logout = () => {
           setLoading(false);
         });
       }}
-      className="flex cursor-pointer items-center gap-2 text-destructive"
+      className="flex cursor-pointer items-center gap-2"
     >
       {isLoading ? 'Logging out...' : 'Logout'}
       <LogoutIcon className="size-4" />

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface CardContentProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface CardContentProps {
 
 export default function CardContent({
   children,
-  className = "",
+  className = ''
 }: CardContentProps) {
   return <div className={className}>{children}</div>;
 }

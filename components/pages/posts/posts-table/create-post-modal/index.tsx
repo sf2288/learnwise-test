@@ -56,7 +56,7 @@ export default function CreatePostModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onClick={handleOverlayClick} // Close modal if click is on the overlay
     >
       <div className="w-full max-w-lg rounded-lg bg-white p-6">

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface TableHeaderProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface TableHeaderProps {
 
 export default function TableHeader({
   children,
-  className = "",
+  className = ''
 }: TableHeaderProps) {
   return <thead className={`${className}`}>{children}</thead>;
 }

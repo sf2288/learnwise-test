@@ -6,7 +6,9 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 interface ModalState {
   isOpen: boolean;
   title?: string;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   data?: any;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   onSubmitCallback?: (data?: any) => void;
 }
 export type ModalType = keyof typeof MODAL_TYPE;

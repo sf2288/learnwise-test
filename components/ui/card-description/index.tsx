@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface CardDescriptionProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface CardDescriptionProps {
 
 export default function CardDescription({
   children,
-  className = "",
+  className = ''
 }: CardDescriptionProps) {
   return (
     <p className={`text-sm text-muted-foreground ${className}`}>{children}</p>

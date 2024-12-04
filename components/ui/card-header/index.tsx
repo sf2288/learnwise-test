@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface CardHeaderProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface CardHeaderProps {
 
 export default function CardHeader({
   children,
-  className = "",
+  className = ''
 }: CardHeaderProps) {
   return <div className={`p-6 ${className}`}>{children}</div>;
 }

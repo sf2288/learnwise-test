@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface TableBodyProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface TableBodyProps {
 
 export default function TableBody({
   children,
-  className = "",
+  className = ''
 }: TableBodyProps) {
   return (
     <tbody className={`[&_tr:last-child]:border-0 ${className}`}>

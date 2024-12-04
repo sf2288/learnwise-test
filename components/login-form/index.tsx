@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { LoginAction } from "@/app/login/action";
-import Button from "@/components/ui/button";
-import Input from "@/components/ui/input";
-import { useCustomRouter } from "@/hooks/use-next-navigation";
-import { PAGES } from "@/utils/constants";
-import { FormEvent, useState } from "react";
-import Label from "../ui/label";
+import { LoginAction } from '@/app/login/action';
+import Button from '@/components/ui/button';
+import Input from '@/components/ui/input';
+import { useCustomRouter } from '@/hooks/use-next-navigation';
+import { PAGES } from '@/utils/constants';
+import { FormEvent, useState } from 'react';
+import Label from '../ui/label';
 
 export default function LoginForm() {
   const router = useCustomRouter();
@@ -22,7 +22,7 @@ export default function LoginForm() {
     try {
       const formData = new FormData(event.currentTarget);
       const response = await LoginAction(
-        { isAuthenticated: false, message: "" },
+        { isAuthenticated: false, message: '' },
         formData
       );
 
@@ -62,7 +62,7 @@ export default function LoginForm() {
           aria-disabled={isLoading}
           loading={isLoading}
         >
-          {isLoading ? "Logging in..." : "Login"}
+          {isLoading ? 'Logging in...' : 'Login'}
         </Button>
         <Label className="text-destructive">{error}</Label>
       </div>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 // Custom hook to detect clicks outside the specified element
 export function useClickOutside(
@@ -14,11 +14,11 @@ export function useClickOutside(
     };
 
     // Attach the event listener for mousedown
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     // Cleanup event listener on component unmount
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [ref, callback]);
 }

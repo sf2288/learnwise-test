@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface TableRowProps {
   children: ReactNode;
@@ -8,13 +8,13 @@ interface TableRowProps {
 
 export default function TableRow({
   children,
-  className = "",
-  alternate = false,
+  className = '',
+  alternate = false
 }: TableRowProps) {
   return (
     <tr
       className={`border-b transition-colors hover:bg-muted/80 data-[state=selected]:bg-muted ${
-        alternate ? "even:bg-muted/50" : ""
+        alternate ? 'even:bg-muted/50' : ''
       } ${className}`}
     >
       {children}

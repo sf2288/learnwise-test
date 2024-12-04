@@ -1,5 +1,5 @@
-"use server";
-import { cookies } from "next/headers";
+'use server';
+import { cookies } from 'next/headers';
 
 export const setServerCookie = async (
   name: string,

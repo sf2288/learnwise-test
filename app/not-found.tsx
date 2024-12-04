@@ -1,6 +1,6 @@
-import CustomLink from "@/components/custom-link";
-import Button from "@/components/ui/button";
-import { PAGES } from "@/utils/constants";
+import CustomLink from '@/components/custom-link';
+import Button from '@/components/ui/button';
+import { PAGES } from '@/utils/constants';
 
 export default function NotFound() {
   return (
@@ -8,7 +8,7 @@ export default function NotFound() {
       <span className="bg-gradient-to-b from-foreground to-transparent bg-clip-text text-[10rem] font-extrabold leading-none text-transparent">
         404
       </span>
-      <h2 className="font-heading my-2 text-2xl font-bold">Page not found!</h2>
+      <h2 className="my-2 text-2xl font-bold">Page not found!</h2>
       <p>
         Sorry, the page you are looking for doesn&apos;t exist or has been
         moved.

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface CardTitleProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface CardTitleProps {
 
 export default function CardTitle({
   children,
-  className = "",
+  className = ''
 }: CardTitleProps) {
   return (
     <h2

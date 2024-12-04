@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 interface IconProps {
   className?: string;
 }
 
 const LogoIcon: React.FC<IconProps> = ({
-  className = "stroke-primary-foreground",
+  className = 'stroke-primary-foreground'
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

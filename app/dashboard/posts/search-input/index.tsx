@@ -105,7 +105,7 @@ export function SearchInput({
 
       {/* Search Input with transition */}
       <div
-        className={`absolute left-0 top-[26%] w-full -translate-y-[26%] transition-all duration-300 ease-in-out ${
+        className={`absolute left-0 top-[26%] w-full translate-y-[-26%] transition-all duration-300 ease-in-out ${
           isSearchVisible ? 'opacity-100' : 'opacity-0'
         }`}
       >

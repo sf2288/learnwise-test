@@ -1,10 +1,10 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
 import {
   useParams,
   usePathname,
   useRouter,
-  useSearchParams,
-} from "next/navigation";
+  useSearchParams
+} from 'next/navigation';
 
 /**
  * Revalidates a page at the given pathname using Next.js's built-in
@@ -14,7 +14,7 @@ import {
  */
 const handleRevalidatePath = (pathname: string) => {
   if (!pathname) {
-    console.error("Pathname is required.");
+    console.error('Pathname is required.');
     return;
   }
   revalidatePath(pathname);
@@ -41,5 +41,5 @@ export {
   useCustomParams,
   useCustomPathname,
   useCustomRouter,
-  useCustomSearchParams,
+  useCustomSearchParams
 };

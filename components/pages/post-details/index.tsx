@@ -86,7 +86,12 @@ const PostDetail = ({ post }: { post: IPost }) => {
             <Label>
               Posted by{' '}
               {website ? (
-                <CustomLink format href={website} className="text-indigo-700">
+                <CustomLink
+                  format
+                  isExternal
+                  href={website}
+                  className="text-indigo-700"
+                >
                   {updatedPost?.user?.name}
                 </CustomLink>
               ) : (

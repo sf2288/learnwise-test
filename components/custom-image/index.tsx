@@ -1,5 +1,5 @@
 'use client';
-import Image, { ImageLoaderProps, ImageProps } from 'next/image';
+import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 
 interface ICustomImage extends ImageProps {
