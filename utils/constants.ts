@@ -7,7 +7,9 @@ export const CONSTANTS = {
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
   SITE_NAME: SITE_NAME,
-  TOKEN_KEY_NAME: SITE_NAME ? SITE_NAME.toLocaleLowerCase() : "",
+  TOKEN_KEY_NAME: SITE_NAME
+    ? SITE_NAME.toLocaleLowerCase().replace(/\s+/g, "-")
+    : "",
 
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL as string,
 
