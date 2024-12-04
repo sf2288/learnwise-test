@@ -64,7 +64,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     return (
-      <button ref={ref} className={buttonClasses} {...props}>
+      <button
+        ref={ref}
+        disabled={disabled}
+        className={buttonClasses}
+        {...props}
+      >
         {children}
         {loading && <SpinnerIcon className="animate-spin" />}
       </button>

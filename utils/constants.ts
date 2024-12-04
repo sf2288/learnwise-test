@@ -10,6 +10,7 @@ export const CONSTANTS = {
   TOKEN_KEY_NAME: SITE_NAME
     ? SITE_NAME.toLocaleLowerCase().replace(/\s+/g, '-')
     : '',
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
 
   NEXT_PUBLIC_SITE_URL:
     (process.env.NEXT_PUBLIC_SITE_URL as string) || 'http://localhost:3000',

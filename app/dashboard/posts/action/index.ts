@@ -1,3 +1,6 @@
+'use server';
+
+import { OpenAI } from 'openai';
 import { fetcher } from '@/app/action/main-fetcher';
 import { API_ROUTES, CONSTANTS } from '@/utils/constants';
 
@@ -50,4 +53,33 @@ export async function GetUserByIdAction(id: number) {
     apiPath: `${API_ROUTES.USERS.apiPath}/${id}`
   });
   return response.body;
+}
+
+export async function GeneratePostBody(title: string) {
+  if (!CONSTANTS.OPENAI_API_KEY) {
+    console.error('OpenAI API KEY is not set.');
+    return { error: 'OpenAI API KEY is not set.' };
+  }
+  try {
+    const openai = new OpenAI({ apiKey: CONSTANTS.OPENAI_API_KEY });
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a helpful assistant.' },
+        {
+          role: 'user',
+          content: `Suggest 3 related blog post body based on the given title: "${title}". The body should be informative and engaging, consisting of 3-4 paragraphs. Format the response as a numbered list and without markdown or editor format.`
+        }
+      ],
+      max_tokens: 500,
+      temperature: 0.7
+    });
+
+    const generatedContent = response.choices[0].message.content;
+    return { content: generatedContent };
+  } catch (error) {
+    console.error('OpenAI API error:', error);
+    return { error: 'Error generating content.' };
+  }
 }

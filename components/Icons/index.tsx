@@ -1,19 +1,21 @@
 import {
-  ArrowRight,
   ArrowLeft,
+  ArrowRight,
   Check,
   ChevronLeft,
   ChevronRight,
+  Dot,
+  Home,
   Loader2,
   LogIn,
   LogOut,
   LucideIcon,
-  Plus,
-  Search,
-  X,
-  Save,
   Pencil,
-  Home
+  Plus,
+  Save,
+  Search,
+  Sparkles,
+  X
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -32,5 +34,7 @@ export const Icons = {
   search: Search,
   save: Save,
   pencil: Pencil,
-  home: Home
+  home: Home,
+  dot: Dot,
+  sparkles: Sparkles
 };

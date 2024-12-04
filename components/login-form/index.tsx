@@ -64,7 +64,7 @@ export default function LoginForm() {
         >
           {isLoading ? 'Logging in...' : 'Login'}
         </Button>
-        <Label className="text-destructive">{error}</Label>
+        {error ? <Label className="text-destructive">{error}</Label> : null}
       </div>
     </form>
   );

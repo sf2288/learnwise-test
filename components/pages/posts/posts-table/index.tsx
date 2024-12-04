@@ -107,9 +107,8 @@ const PostsTable = ({
               setModalData({
                 [MODAL_TYPE.CREATE_POST_MODAL]: {
                   isOpen: true,
-                  title: 'Create new Post',
+                  title: 'Create new Post with AI',
                   onSubmitCallback: (post: IPost) => {
-                    console.log('🚀 ~ post:', post);
                     setPosts((prev) => [post, ...prev]);
                     setModalData({
                       [MODAL_TYPE.CREATE_POST_MODAL]: {

@@ -1,6 +1,9 @@
 'use client';
 
-import { CreatePostAction } from '@/app/dashboard/posts/action';
+import {
+  CreatePostAction,
+  GeneratePostBody
+} from '@/app/dashboard/posts/action';
 import { Icons } from '@/components/Icons';
 import { useModalContext } from '@/components/modal-context';
 import Button from '@/components/ui/button';
@@ -10,17 +13,35 @@ import TextArea from '@/components/ui/textarea';
 import { MODAL_TYPE } from '@/utils/constants';
 import { FormEvent, useState } from 'react';
 
-const CloseIcon = Icons['close'];
 const PlusIcon = Icons['add'];
+const CloseIcon = Icons['close'];
+const DotIcon = Icons['dot'];
+const SparklesIcon = Icons['sparkles'];
 
 export default function CreatePostModal() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
   const { modalData, setModalData } = useModalContext();
   const createPostModal = modalData[MODAL_TYPE.CREATE_POST_MODAL];
+  const [loading, setLoading] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>('');
+  const [body, setBody] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
+  const generateBody = async () => {
+    if (title) {
+      setLoading(true);
+      setError('');
+      const res = await GeneratePostBody(title);
+      if (res.error) {
+        setError(res.error);
+      }
+      setBody(res.content || '');
+      setLoading(false);
+    }
+  };
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
+    setIsSubmitLoading(true);
     const formData = new FormData(event.currentTarget);
     const title = formData.get('title') as string;
     const body = formData.get('body') as string;
@@ -35,10 +56,10 @@ export default function CreatePostModal() {
       if (typeof createPostModal.onSubmitCallback === 'function') {
         createPostModal.onSubmitCallback(res); // Use the passed callback to handle the post creation
       }
-      setIsLoading(false);
+      setIsSubmitLoading(false);
     } catch (error) {
       console.error('Error creating post:', error);
-      setIsLoading(false);
+      setIsSubmitLoading(false);
     }
   };
 
@@ -54,6 +75,10 @@ export default function CreatePostModal() {
     setModalData({ [MODAL_TYPE.CREATE_POST_MODAL]: { isOpen: false } });
   };
 
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
@@ -67,7 +92,7 @@ export default function CreatePostModal() {
             onClick={handleModalClose}
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex w-full flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
           <div className="space-y-1">
             <Label
               htmlFor="title"
@@ -75,7 +100,15 @@ export default function CreatePostModal() {
             >
               Title
             </Label>
-            <Input type="text" id="title" name="title" required />
+            <div className="relative">
+              <Input
+                required
+                id="title"
+                type="text"
+                name="title"
+                onChange={handleTitleChange}
+              />
+            </div>
           </div>
           <div className="space-y-1">
             <Label
@@ -84,13 +117,37 @@ export default function CreatePostModal() {
             >
               Body
             </Label>
-            <TextArea
-              id="body"
-              name="body"
-              className="w-full"
-              rows={4}
-              required
-            ></TextArea>
+
+            <div className="relative">
+              <TextArea
+                required
+                rows={4}
+                id="body"
+                name="body"
+                className="w-full"
+                defaultValue={body}
+              />
+              <Button
+                type="button"
+                disabled={!title}
+                variant="secondary"
+                onClick={generateBody}
+                className="absolute right-4 top-2 z-50 size-5 bg-white p-0"
+              >
+                <SparklesIcon className="text-indigo-700" />
+              </Button>
+            </div>
+            {loading ? (
+              <div className="flex animate-pulse items-end gap-2">
+                Generating AI Content{' '}
+                <div className="flex items-center">
+                  <DotIcon className="size-6 animate-pulse" />
+                  <DotIcon className="size-6 animate-pulse" />
+                  <DotIcon className="size-6 animate-pulse" />
+                </div>
+              </div>
+            ) : null}
+            {error ? <Label className="text-destructive">{error}</Label> : null}
           </div>
           <div className="flex justify-end gap-4">
             <Button variant="secondary" onClick={handleModalClose}>
@@ -99,11 +156,11 @@ export default function CreatePostModal() {
             <Button
               type="submit"
               className="rounded px-4 py-2 text-white"
-              disabled={isLoading}
-              aria-disabled={isLoading}
-              loading={isLoading}
+              disabled={isSubmitLoading}
+              aria-disabled={isSubmitLoading}
+              loading={isSubmitLoading}
             >
-              {isLoading ? (
+              {isSubmitLoading ? (
                 'Creating...'
               ) : (
                 <>
