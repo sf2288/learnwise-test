@@ -39,7 +39,7 @@ export default function LoginForm() {
       }
       addToast({
         type: response.error ? 'error' : 'success',
-        title: 'Alert',
+        title: response.error ? 'Failed' : 'Success',
         message: response.message
       });
       if (response.error) {
@@ -50,7 +50,7 @@ export default function LoginForm() {
       setIsLoading(false);
       addToast({
         type: 'error',
-        title: 'Alert',
+        title: 'Failed',
         message: error as string
       });
     }

@@ -74,7 +74,8 @@ export default function CreatePostModal() {
       const data = {
         title,
         body,
-        userId: 2
+        userId: 2,
+        isTemp: true
       };
       const res = await CreatePostAction(data);
 
@@ -83,7 +84,7 @@ export default function CreatePostModal() {
       }
       addToast({
         type: 'success',
-        title: 'Alert',
+        title: 'Success!',
         message: 'Post created successfully.'
       });
       setIsSubmitLoading(false);
@@ -92,7 +93,7 @@ export default function CreatePostModal() {
       setIsSubmitLoading(false);
       addToast({
         type: 'error',
-        title: 'Alert',
+        title: 'Failed!',
         message: error as string
       });
     }
@@ -116,6 +117,8 @@ export default function CreatePostModal() {
   const handleBodyChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBody(event.target.value);
   };
+
+  const disableSubmit = isSubmitLoading || loading || !(title && body);
 
   return (
     <div
@@ -213,16 +216,15 @@ export default function CreatePostModal() {
             <Button
               type="submit"
               className="rounded px-4 py-2 text-white"
-              disabled={isSubmitLoading || loading}
-              aria-disabled={isSubmitLoading || loading}
+              disabled={disableSubmit}
+              aria-disabled={disableSubmit}
               loading={isSubmitLoading}
             >
               {isSubmitLoading ? (
                 'Creating...'
               ) : (
                 <>
-                  <PlusIcon className="size-4" onClick={handleModalClose} />{' '}
-                  Create Post
+                  <PlusIcon className="size-4" /> Create Post
                 </>
               )}
             </Button>

@@ -3,6 +3,7 @@ export interface IPost {
   title: string;
   body: string;
   userId: number;
+  isTemp?: boolean;
   user?: {
     id?: number;
     name?: string;

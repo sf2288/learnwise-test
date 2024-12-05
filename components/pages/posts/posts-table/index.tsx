@@ -23,6 +23,7 @@ import { MODAL_TYPE, PAGES } from '@/utils/constants';
 import dynamic from 'next/dynamic';
 import { useEffect, useState, useTransition } from 'react';
 import { POSTS_COLUMNS } from './columns';
+import Label from '@/components/ui/label';
 
 const CreatePostModal = dynamic(() => import('./create-post-modal'), {
   loading: () => null
@@ -55,6 +56,7 @@ const PostsTable = ({
   const searchQuery = searchParams.get('search') as string;
   const [currentPage, setCurrentPage] = useState(page);
   const [posts, setPosts] = useState<Array<IPost>>(filteredPosts);
+  console.log('🚀 ~ posts:', posts);
   const router = useCustomRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -129,7 +131,7 @@ const PostsTable = ({
               });
             }}
           >
-            <SparklesIcon />
+            <SparklesIcon className="animate-pulse" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Create Post with AI
             </span>
@@ -154,24 +156,35 @@ const PostsTable = ({
                 <TableRow key={`${post.id}-${index}`} alternate>
                   <TableCell>
                     <div className="flex flex-col gap-1">
-                      <CustomLink
-                        href={`${PAGES.DASHBOARD.POSTS.url}/${post.id}`}
-                        className="line-clamp-2 w-fit text-indigo-700 underline-offset-4 hover:underline md:line-clamp-none"
-                      >
-                        {post.title}
-                      </CustomLink>
+                      {!post.isTemp ? (
+                        <CustomLink
+                          href={`${PAGES.DASHBOARD.POSTS.url}/${post.id}`}
+                          className="line-clamp-2 w-fit text-indigo-700 underline-offset-4 hover:underline md:line-clamp-none"
+                        >
+                          {post.title}
+                        </CustomLink>
+                      ) : (
+                        <Label className="inline-block">
+                          {post.title}{' '}
+                          <Label className="inline-block text-xs">
+                            (Temporary Post)
+                          </Label>
+                        </Label>
+                      )}
                       <span className="line-clamp-1 max-w-3xl text-sm text-muted-foreground/80">
                         {post.body}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <CustomLink
-                      href={`${PAGES.DASHBOARD.POSTS.url}/${post.id}`}
-                      className="text-blue-500"
-                    >
-                      <Button>View</Button>
-                    </CustomLink>
+                    {!post.isTemp ? (
+                      <CustomLink
+                        href={`${PAGES.DASHBOARD.POSTS.url}/${post.id}`}
+                        className="text-blue-500"
+                      >
+                        <Button>View</Button>
+                      </CustomLink>
+                    ) : null}
                   </TableCell>
                 </TableRow>
               ))

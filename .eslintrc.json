@@ -6,7 +6,6 @@
   ],
   "plugins": ["@typescript-eslint", "tailwindcss"],
   "rules": {
-    "@typescript-eslint/no-require-imports": "error",
     "@typescript-eslint/no-unused-vars": ["warn", { "args": "none" }],
     "import/no-unresolved": "error",
     "import/named": "off"

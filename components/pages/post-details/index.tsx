@@ -50,7 +50,7 @@ const PostDetail = ({ post }: { post: IPost }) => {
 
       addToast({
         type: 'success',
-        title: 'Alert',
+        title: 'Success',
         message: 'Title updated successfully.'
       });
       setIsEditing(false);
