@@ -6,6 +6,10 @@ import { CONSTANTS } from '@/utils/constants';
 import { ModalProvider } from '@/components/modal-context';
 import { ToastProvider } from '@/components/toast-context';
 
+import dynamic from 'next/dynamic';
+
+const Analytics = dynamic(() => import('@/components/analytics'));
+
 const inter = Inter({
   subsets: ['latin']
 });
@@ -49,6 +53,7 @@ export default function RootLayout({
             {children}
           </ModalProvider>
         </ToastProvider>
+        {CONSTANTS.IS_PRDOUCTION ? <Analytics /> : null}
       </body>
     </html>
   );

@@ -3,6 +3,7 @@ import { NavItem } from './common-types';
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME as string;
 
 export const CONSTANTS = {
+  IS_PRDOUCTION: process.env.NODE_ENV === 'production',
   BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
