@@ -4,6 +4,12 @@ import { OpenAI } from 'openai';
 import { fetcher } from '@/app/action/main-fetcher';
 import { API_ROUTES, CONSTANTS } from '@/utils/constants';
 
+/**
+ * Fetches posts from the API using the provided page and limit.
+ * @param {number} [page=1] Page number to fetch.
+ * @param {number} [limit=PER_PAGE] Number of posts to fetch per page.
+ * @returns {Promise<{ posts: IPost[]; total: number }>} A promise resolving to an object containing the posts and the total count.
+ */
 export const GetPostsAction = async (
   page: number = 1,
   limit: number = CONSTANTS.PER_PAGE
@@ -28,6 +34,13 @@ export const GetPostsAction = async (
   }
 };
 
+/**
+ * Fetches a post by its ID.
+ * Sends a request to the POSTS API route with the specified post ID.
+ * Retrieves the post data from the response body.
+ * @param {number} id - The ID of the post to be fetched.
+ * @returns {Promise<any>} A promise that resolves to the post data.
+ */
 export async function GetPostByIdAction(id: number) {
   const response = await fetcher({
     apiPath: `${API_ROUTES.POSTS.apiPath}/${id}`
@@ -35,6 +48,14 @@ export async function GetPostByIdAction(id: number) {
   return response.body;
 }
 
+/**
+ * Creates a new post.
+ * @param {Object} data
+ * @param {string} data.title The title of the post
+ * @param {string} data.body The body of the post
+ * @param {number} data.userId The ID of the user creating the post
+ * @returns {Promise<Object>} The created post object
+ */
 export async function CreatePostAction(data: {
   title: string;
   body: string;
@@ -48,6 +69,13 @@ export async function CreatePostAction(data: {
   return response.body;
 }
 
+/**
+ * Fetches a user by their ID.
+ * Sends a request to the USERS API route with the specified user ID.
+ * Retrieves the user data from the response body.
+ * @param {number} id - The ID of the user to be fetched.
+ * @returns {Promise<any>} A promise that resolves to the user data.
+ */
 export async function GetUserByIdAction(id: number) {
   const response = await fetcher({
     apiPath: `${API_ROUTES.USERS.apiPath}/${id}`
@@ -55,6 +83,14 @@ export async function GetUserByIdAction(id: number) {
   return response.body;
 }
 
+/**
+ * Generates post body content using the provided title.
+ * Utilizes the OpenAI API to suggest a blog post body based on the title.
+ * Sets loading state during the API call and handles any errors.
+ * Returns an object with the generated content or an error message.
+ * @param {string} title The title of the post
+ * @returns {Promise<{error: string} | {content: string}>}
+ */
 export async function GeneratePostBody(title: string) {
   if (!CONSTANTS.OPENAI_API_KEY) {
     console.error('OpenAI API KEY is not set.');

@@ -10,6 +10,25 @@ type BreadcrumbItemProps = {
 };
 const HomeIcon = Icons['home'];
 
+/**
+ * A breadcrumb component that displays a list of links separated by `/`.
+ *
+ * If `items` is not provided, it will default to an empty array.
+ *
+ * Each item in `items` should have `title` and `link` properties.
+ *
+ * The last item in `items` will be displayed as a non-link element
+ * with a gray color.
+ *
+ * @example
+ * <Breadcrumbs
+ *   items={[
+ *     { title: 'Dashboard', link: '/dashboard' },
+ *     { title: 'Posts', link: '/dashboard/posts' },
+ *     { title: 'Create Post', link: '/dashboard/posts/create' },
+ *   ]}
+ * />
+ */
 export function Breadcrumbs({
   items: breadCrumbs
 }: {

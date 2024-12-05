@@ -2,6 +2,11 @@ import CustomLink from '@/components/custom-link';
 import Button from '@/components/ui/button';
 import { PAGES } from '@/utils/constants';
 
+/**
+ * Renders a 404 Not Found page with a message indicating the page is not available.
+ * Displays a large "404" text, a message stating the page is not found,
+ * and provides a link to navigate back to the home page.
+ */
 export default function NotFound() {
   return (
     <div className="absolute left-1/2 top-1/2 mb-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center">

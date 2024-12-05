@@ -20,18 +20,38 @@ const handleRevalidatePath = (pathname: string) => {
   revalidatePath(pathname);
 };
 
+/**
+ * Returns the `useRouter` hook from `next/navigation`.
+ *
+ * @returns {UseRouterResult} The result of calling `useRouter`.
+ */
 function useCustomRouter() {
   return useRouter();
 }
 
+/**
+ * Returns the `useParams` hook from `next/navigation`.
+ *
+ * @returns {UseParamsResult} The result of calling `useParams`.
+ */
 function useCustomParams() {
   return useParams();
 }
 
+/**
+ * Returns the `useSearchParams` hook from `next/navigation`.
+ *
+ * @returns {UseSearchParamsResult} The result of calling `useSearchParams`.
+ */
 function useCustomSearchParams() {
   return useSearchParams();
 }
 
+/**
+ * Returns the `usePathname` hook from `next/navigation`.
+ *
+ * @returns {UsePathnameResult} The result of calling `usePathname`.
+ */
 function useCustomPathname() {
   return usePathname();
 }

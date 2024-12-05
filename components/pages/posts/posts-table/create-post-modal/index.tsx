@@ -18,6 +18,14 @@ const CloseIcon = Icons['close'];
 const DotIcon = Icons['dot'];
 const SparklesIcon = Icons['sparkles'];
 
+/**
+ * @function CreatePostModal
+ * @description A modal component for creating a new post.
+ * @param {Object} props Component props
+ * @param {string} props.title The title of the modal
+ * @param {Function} props.onSubmitCallback A callback function which will be called with the newly created post data after submission.
+ * @returns {ReactElement} A modal component displaying a form for creating a new post.
+ */
 export default function CreatePostModal() {
   const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
   const { modalData, setModalData } = useModalContext();
@@ -27,6 +35,12 @@ export default function CreatePostModal() {
   const [body, setBody] = useState<string>('');
   const [error, setError] = useState<string>('');
 
+  /**
+   * Generates post body content using the provided title.
+   * Utilizes the OpenAI API to suggest a blog post body based on the title.
+   * Sets loading state during the API call and handles any errors.
+   * Updates the body state with the generated content upon successful retrieval.
+   */
   const generateBody = async () => {
     if (title) {
       setLoading(true);
@@ -39,6 +53,15 @@ export default function CreatePostModal() {
       setLoading(false);
     }
   };
+  /**
+   * Handles the form submission for creating a new post.
+   * Prevents the default form submission behavior.
+   * Retrieves the title and body from the form data.
+   * Attempts to create the post using the CreatePostAction function.
+   * If successful, calls the onSubmitCallback function with the newly created post data.
+   * If failed, logs the error to the console.
+   * @param {FormEvent<HTMLFormElement>} event The form submission event.
+   */
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitLoading(true);
@@ -51,6 +74,7 @@ export default function CreatePostModal() {
         body,
         userId: 2
       };
+      //
       const res = await CreatePostAction(data);
 
       if (typeof createPostModal.onSubmitCallback === 'function') {

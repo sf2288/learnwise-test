@@ -11,6 +11,17 @@ import { useRef, useState } from 'react';
 
 const PencilIcon = Icons['pencil'];
 
+/**
+ * PostDetail is a component that displays the details of a single post.
+ * It allows editing of the post title and updates the post data accordingly.
+ * The component handles clicks outside the editing area to stop editing and
+ * updates the title when the Enter key is pressed.
+ *
+ * @param {Object} props - Component props
+ * @param {IPost} props.post - The post data to display
+ * @returns {JSX.Element} A component displaying the post details, including
+ * a title, author information, and post content.
+ */
 const PostDetail = ({ post }: { post: IPost }) => {
   const [updatedPost, setUpdatedPost] = useState<IPost>(post);
   const [title, setTitle] = useState(post.title);
@@ -21,7 +32,7 @@ const PostDetail = ({ post }: { post: IPost }) => {
   useClickOutside(titleInputRef, () => {
     if (isEditing) {
       handleUpdate();
-      setIsEditing(false);
+      setIsEditing(false); // Close editing mode
     }
   });
 

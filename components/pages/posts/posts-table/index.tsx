@@ -28,11 +28,19 @@ const CreatePostModal = dynamic(() => import('./create-post-modal'), {
   loading: () => null
 });
 
-const PlusIcon = Icons['add'];
 const SparklesIcon = Icons['sparkles'];
 const ArrowLeftIcon = Icons['arrowLeft'];
 const ArrowRightIcon = Icons['arrowRight'];
 
+/**
+ * @function PostsTable
+ * @description Table component for displaying a list of posts
+ * @param {Object} props Component props
+ * @param {number} props.total Total number of posts
+ * @param {number} props.totalPages Total number of pages
+ * @param {Array<IPost>} [props.filteredPosts=[]] Filtered list of posts
+ * @returns {ReactElement} A table component displaying the list of posts
+ */
 const PostsTable = ({
   total,
   totalPages,
@@ -121,7 +129,6 @@ const PostsTable = ({
               });
             }}
           >
-            {/* <PlusIcon className="size-4" /> */}
             <SparklesIcon />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Create Post with AI

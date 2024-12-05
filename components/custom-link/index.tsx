@@ -4,15 +4,29 @@ import { ReactNode } from 'react';
 
 interface CustomLinkProps {
   href: string;
-  isExternal?: boolean; // Determines if the link is external
-  format?: boolean; // Optional flag to format the href
+  isExternal?: boolean;
+  format?: boolean;
   children: ReactNode;
   className?: string;
-  target?: '_self' | '_blank' | '_parent' | '_top'; // Restricts to valid targets
-  download?: boolean; // Specifies if the link should download a resource
-  onClick?: () => void; // Optional click handler
+  target?: '_self' | '_blank' | '_parent' | '_top';
+  download?: boolean;
+  onClick?: () => void;
 }
 
+/**
+ * CustomLink component renders an anchor or Next.js Link element.
+ *
+ * @param {string} href - The URL the link points to.
+ * @param {boolean} [isExternal=false] - Indicates if the link is external.
+ * @param {ReactNode} children - The content inside the link.
+ * @param {string} [className=''] - Optional CSS classes to apply.
+ * @param {'_self' | '_blank' | '_parent' | '_top'} [target='_blank'] - Specifies where to open the link.
+ * @param {boolean} [download=false] - Specifies if the link should download a resource.
+ * @param {() => void} [onClick] - Optional click handler.
+ * @param {boolean} [format=false] - Flag to format the href.
+ * @param {object} rest - Additional props to pass to the link element.
+ * @returns {JSX.Element} A rendered anchor or Link element based on the props.
+ */
 export default function CustomLink({
   href,
   isExternal = false,
@@ -27,6 +41,7 @@ export default function CustomLink({
   // Add 'http://' if href doesn't contain http:// or https://
   const formattedHref = format ? formatHref(href) : href;
   const linkClasses = cn(className);
+
   if (isExternal) {
     return (
       <a

@@ -12,10 +12,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(CONSTANTS.NEXT_PUBLIC_SITE_URL),
   title: {
-    template: '%s | Shahid Learnwise Test',
-    default: 'Shahid Learnwise Test'
+    template: `%s | ${CONSTANTS.SITE_NAME} Test`,
+    default: `${CONSTANTS.SITE_NAME} Test`
   },
-  description: 'Shahid Learnwise Test',
+  description: `${CONSTANTS.SITE_NAME} Test`,
   openGraph: {
     images: ['/next.svg'],
     locale: 'en_US',
@@ -23,6 +23,15 @@ export const metadata: Metadata = {
   }
 };
 
+/**
+ * The root layout of the app.
+ *
+ * This component is responsible for rendering the header and the modal context
+ * provider.
+ *
+ * @param children The children of the root layout.
+ * @returns The root layout component.
+ */
 export default function RootLayout({
   children
 }: Readonly<{

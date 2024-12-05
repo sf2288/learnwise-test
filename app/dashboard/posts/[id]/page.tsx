@@ -11,6 +11,16 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
+/**
+ * Generates metadata for a single post.
+ *
+ * Retrieves the post by its ID using the {@link GetPostByIdAction} action.
+ * Extracts the post title and body to set as the title and description of the metadata.
+ * Also sets keywords to the words in the title and the Twitter card to the post title and body.
+ * @param {Props} props - Component props
+ * @param {ResolvingMetadata} parent - Parent metadata
+ * @returns {Promise<Metadata>} A promise that resolves to the post metadata
+ */
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
@@ -30,6 +40,12 @@ export async function generateMetadata(
   };
 }
 
+/**
+ * Page displaying a single post with its details.
+ * Fetches the post and author data from the API.
+ * If the post is not found, redirects to the posts page.
+ * If the post is found, renders the post details component.
+ */
 const PostDetailsPage = async ({ params }: Props) => {
   const pageParams = await params;
   const id = Number(pageParams.id);

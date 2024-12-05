@@ -12,16 +12,29 @@ import { CONSTANTS } from '@/utils/constants';
 import { ChangeEvent, useEffect, useRef, useState, useTransition } from 'react';
 
 interface SearchInputProps {
-  queryParamName?: string; // Customize the query parameter name (default: "search")
-  placeholder?: string; // Custom placeholder text (default: "Search...")
-  defaultValue?: string; // Default value to initialize the search
-  onSearch?: (query: string) => void; // Optional callback when search is updated
+  queryParamName?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  onSearch?: (query: string) => void;
   delay?: number;
 }
 
 const SearchIcon = Icons['search'];
 const SpinnerIcon = Icons['spinner'];
 
+/**
+ * SearchInput is a component that allows searching and provides a way to
+ * control the visibility of the search input. It uses the URL search query
+ * to store the search query and updates the URL when the search is changed.
+ *
+ * @param {Object} props
+ * @param {string} [props.queryParamName=search] - Customize the query parameter name
+ * @param {string} [props.placeholder=Search...] - Custom placeholder text
+ * @param {string} [props.defaultValue=''] - Default value to initialize the search
+ * @param {number} [props.delay=CONSTANTS.SEARCH_DELAY] - Debounce delay in ms
+ * @param {(query: string) => void} [props.onSearch] - Optional callback when search is updated
+ * @returns {JSX.Element} A SearchInput component
+ */
 export function SearchInput({
   queryParamName = 'search',
   placeholder = 'Search...',
@@ -34,39 +47,35 @@ export function SearchInput({
   const router = useCustomRouter();
   const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState<string>(searchQuery);
-  const [loading, setLoading] = useState<boolean>(false); // Track loading state for search
+  const [loading, setLoading] = useState<boolean>(false);
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(
     Boolean(searchQuery) || false
-  ); // Control search input visibility
-  const searchInputRef = useRef<HTMLDivElement | null>(null); // Ref for the search input container
+  );
+  const searchInputRef = useRef<HTMLDivElement | null>(null);
 
-  // Use the custom hook to handle clicks outside the search input
   useClickOutside(searchInputRef, () => {
     if (!Boolean(searchQuery)) setIsSearchVisible(false);
   });
-  // Toggle the visibility of the search input
+
   function toggleSearch() {
     setIsSearchVisible(!isSearchVisible);
   }
-  // Debounced search value
+
   const debouncedSearch = useDebounce(search, delay);
 
-  // Set loading state to false once transition is completed
   useEffect(() => {
     if (!isPending) {
-      setLoading(false); // Transition completed, set loading to false
+      setLoading(false);
     }
   }, [isPending]);
 
-  // Sync state with the URL search query
   useEffect(() => {
     setSearch(searchQuery);
   }, [searchQuery]);
 
-  // Update the URL with the debounced search query
   useEffect(() => {
     if (debouncedSearch !== searchQuery) {
-      setLoading(true); // Set loading to true when we start updating the search
+      setLoading(true);
     }
     const params = new URLSearchParams();
     params.delete('page');
@@ -90,7 +99,7 @@ export function SearchInput({
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
     if (onSearch) {
-      onSearch(event.target.value); // Optional callback for external handling
+      onSearch(event.target.value);
     }
   }
 

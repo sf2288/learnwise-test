@@ -15,7 +15,23 @@ interface ICustomImage extends ImageProps {
   fill?: boolean;
   onLoad?: () => void;
 }
+
 const fallBackImage = `/common-placeholder.jpg`;
+
+/**
+ * Renders a customizable image component with optional loading effects and placeholder.
+ *
+ * @param {string} src - Image source URL. Defaults to a fallback image if not provided.
+ * @param {string} alt - Alternative text for the image.
+ * @param {number | string} [width] - Width of the image.
+ * @param {number | string} [height] - Height of the image.
+ * @param {string} [className] - Additional CSS classes for styling the image.
+ * @param {string} [blurDataURL] - Low-quality image placeholder (LQIP) data URL. Defaults to the fallback image.
+ * @param {'blur' | 'empty' | `data:image/${string}`} [placeholder] - Placeholder strategy for the image. Defaults to 'blur'.
+ * @param {boolean} [fill] - If true, the image will fill its parent container.
+ * @param {string} [sizes] - Sizes attribute for responsive image loading. Defaults to common breakpoints.
+ * @param {object} rest - Additional properties passed to the Next.js Image component.
+ */
 export default function CustomImage({
   src = fallBackImage,
   alt,

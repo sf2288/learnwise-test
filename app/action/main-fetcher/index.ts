@@ -4,7 +4,19 @@ import { FetcherParams } from '@/utils/common-types';
 import { CONSTANTS } from '@/utils/constants';
 import { getServerCookie } from '@/utils/server-cookie';
 
-// Main fetcher function
+/**
+ * Performs a fetch request to the API.
+ *
+ * @param {FetcherParams} params An object of parameters to customize the request.
+ * @param {Object} [params.headers] Additional headers to be sent with the request.
+ * @param {'default' | 'no-store' | 'reload' | 'force-cache' | 'only-if-cached'} [params.cache] The cache mode of the request.
+ * @param {'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'} [params.method] The HTTP method of the request.
+ * @param {Object} [params.data] The request body of the request if not a GET request.
+ * @param {FormData} [params.formData] The request body as a FormData object if sending files.
+ * @param {string} params.apiPath The path of the API endpoint.
+ * @param {'include' | 'same-origin' | 'omit'} [params.credentials] The credentials mode of the request.
+ * @returns {Promise<{status: number, body: any, headers: Headers, ok: boolean, error?: string}>} A promise resolving to an object with the response status, body, headers, and a boolean indicating if the request was successful.
+ */
 export async function fetcher({
   headers = {},
   cache,

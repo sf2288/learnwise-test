@@ -20,6 +20,17 @@ export const metadata = {
   }
 };
 
+/**
+ * Fetches and displays a list of posts with pagination and search functionality.
+ *
+ * The function retrieves posts data based on the current page and search parameters.
+ * It calculates the total number of pages and filters posts by title if a search query is present.
+ *
+ * @param {Object} props - Component properties
+ * @param {Promise<{ [key: string]: string | string[] | undefined }>} props.searchParams - Promise resolving to search parameters from the URL
+ *
+ * @returns {JSX.Element} A container component with search input and a table displaying the filtered posts.
+ */
 export default async function Posts({ searchParams }: Props) {
   const urlSearchParams = await searchParams;
   const page = Number(urlSearchParams.page) || 1;

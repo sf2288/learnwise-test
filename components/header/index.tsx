@@ -5,6 +5,14 @@ import CustomLink from '../custom-link';
 import LogoIcon from '../icon/logo';
 import Logout from '../logout';
 
+/**
+ * The site header, which displays the site name and a logout button when the
+ * user is authenticated.
+ *
+ * If the user is not authenticated, the header is not rendered.
+ *
+ * @returns The header component, or null if the user is not authenticated.
+ */
 export default async function Header() {
   const isAuth = await getServerCookie(CONSTANTS.TOKEN_KEY_NAME);
 

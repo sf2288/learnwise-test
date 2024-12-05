@@ -21,6 +21,13 @@ interface ModalContextType {
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
+/**
+ * Hook to get the modal context.
+ *
+ * @throws {Error} if used outside of ModalProvider.
+ *
+ * @returns {ModalContextType} The modal context.
+ */
 export const useModalContext = () => {
   const context = useContext(ModalContext);
   if (!context) {
@@ -29,6 +36,13 @@ export const useModalContext = () => {
   return context;
 };
 
+/**
+ * Provides the modal context to the components.
+ *
+ * @param {{ children: ReactNode }} props
+ * @prop {ReactNode} children The children components.
+ * @returns {JSX.Element} The ModalContext provider.
+ */
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const defaultModalState: { [key in ModalType]: ModalState } = Object.keys(
     MODAL_TYPE
