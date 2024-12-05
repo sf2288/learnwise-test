@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { CONSTANTS } from '@/utils/constants';
 import { ModalProvider } from '@/components/modal-context';
+import { ToastProvider } from '@/components/toast-context';
 
 const inter = Inter({
   subsets: ['latin']
@@ -42,10 +43,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} flex min-h-screen w-full flex-col antialiased`}
       >
-        <ModalProvider>
-          <Header />
-          {children}
-        </ModalProvider>
+        <ToastProvider>
+          <ModalProvider>
+            <Header />
+            {children}
+          </ModalProvider>
+        </ToastProvider>
       </body>
     </html>
   );

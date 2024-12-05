@@ -3,6 +3,7 @@ import { IPost } from '@/app/dashboard/posts/types';
 import CustomImage from '@/components/custom-image';
 import CustomLink from '@/components/custom-link';
 import { Icons } from '@/components/Icons';
+import { useToast } from '@/components/toast-context';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Label from '@/components/ui/label';
@@ -23,6 +24,7 @@ const PencilIcon = Icons['pencil'];
  * a title, author information, and post content.
  */
 const PostDetail = ({ post }: { post: IPost }) => {
+  const { addToast } = useToast();
   const [updatedPost, setUpdatedPost] = useState<IPost>(post);
   const [title, setTitle] = useState(post.title);
   const [isEditing, setIsEditing] = useState(false);
@@ -47,6 +49,12 @@ const PostDetail = ({ post }: { post: IPost }) => {
   const handleUpdate = () => {
     if (post) {
       setUpdatedPost({ ...post, title });
+
+      addToast({
+        type: 'success',
+        title: 'Alert',
+        message: 'Title updated successfully.'
+      });
     }
   };
   const website = updatedPost?.user?.website;
@@ -69,7 +77,7 @@ const PostDetail = ({ post }: { post: IPost }) => {
               onKeyDown={handleKeyDown} // Trigger update on Enter key press
             />
             <Label className="text-xs text-muted-foreground">
-              <em>Press enter to update.</em>
+              <em>Press enter to update or click outside of input.</em>
             </Label>
           </div>
         ) : (

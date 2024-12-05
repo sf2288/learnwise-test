@@ -6,6 +6,7 @@ import {
 } from '@/app/dashboard/posts/action';
 import { Icons } from '@/components/Icons';
 import { useModalContext } from '@/components/modal-context';
+import { useToast } from '@/components/toast-context';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Label from '@/components/ui/label';
@@ -27,12 +28,14 @@ const SparklesIcon = Icons['sparkles'];
  * @returns {ReactElement} A modal component displaying a form for creating a new post.
  */
 export default function CreatePostModal() {
+  const { addToast } = useToast();
   const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
   const { modalData, setModalData } = useModalContext();
   const createPostModal = modalData[MODAL_TYPE.CREATE_POST_MODAL];
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
+  console.log('🚀 ~ CreatePostModal ~ body:', body);
   const [error, setError] = useState<string>('');
 
   /**
@@ -80,17 +83,27 @@ export default function CreatePostModal() {
       if (typeof createPostModal.onSubmitCallback === 'function') {
         createPostModal.onSubmitCallback(res); // Use the passed callback to handle the post creation
       }
+      addToast({
+        type: 'success',
+        title: 'Alert',
+        message: 'Post created successfully.'
+      });
       setIsSubmitLoading(false);
     } catch (error) {
       console.error('Error creating post:', error);
       setIsSubmitLoading(false);
+      addToast({
+        type: 'error',
+        title: 'Alert',
+        message: error as string
+      });
     }
   };
 
   // This function prevents closing the modal if the click happens inside the modal content
   const handleOverlayClick = (e: React.MouseEvent) => {
     // Only close if the click was on the overlay (not the modal content)
-    if (e.target === e.currentTarget) {
+    if (e.target === e.currentTarget && !loading) {
       handleModalClose();
     }
   };
@@ -102,6 +115,9 @@ export default function CreatePostModal() {
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
+  const handleBodyChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBody(event.target.value);
+  };
 
   return (
     <div
@@ -111,10 +127,14 @@ export default function CreatePostModal() {
       <div className="w-full max-w-lg rounded-lg bg-white p-6">
         <div className="flex justify-between">
           <h2 className="mb-6 text-2xl font-bold">{createPostModal?.title}</h2>
-          <CloseIcon
-            className="size-9 cursor-pointer rounded-full border p-2 hover:bg-muted"
+          <Button
             onClick={handleModalClose}
-          />
+            disabled={isSubmitLoading || loading}
+            aria-disabled={isSubmitLoading || loading}
+            className="size-9 cursor-pointer rounded-full border p-2"
+          >
+            <CloseIcon />
+          </Button>
         </div>
         <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
           <div className="space-y-1">
@@ -145,11 +165,12 @@ export default function CreatePostModal() {
             <div className="relative">
               <TextArea
                 required
-                rows={body ? 15 : 6}
+                rows={10}
                 id="body"
                 name="body"
                 className="w-full"
-                defaultValue={body}
+                value={body}
+                onChange={handleBodyChange}
                 disabled={loading}
               />
               <Button
@@ -157,8 +178,12 @@ export default function CreatePostModal() {
                 disabled={!title}
                 variant="secondary"
                 onClick={generateBody}
-                className="absolute right-4 top-2 z-50 size-6 border-0 bg-white p-0 hover:bg-white"
-                title={!title ? 'Write Your Post Title First.' : ''}
+                className={`absolute right-5 top-2 z-50 size-6 border-0 bg-white p-0 hover:bg-white`}
+                title={
+                  !title
+                    ? 'Write Your Post Title above and click to generate AI Content.'
+                    : 'Click to generate AI Content.'
+                }
               >
                 <SparklesIcon
                   className={`${loading ? 'animate-pulse' : ''} text-indigo-700`}
@@ -178,14 +203,19 @@ export default function CreatePostModal() {
             {error ? <Label className="text-destructive">{error}</Label> : null}
           </div>
           <div className="flex justify-end gap-4">
-            <Button variant="secondary" onClick={handleModalClose}>
+            <Button
+              variant="secondary"
+              onClick={handleModalClose}
+              disabled={isSubmitLoading || loading}
+              aria-disabled={isSubmitLoading || loading}
+            >
               Cancel
             </Button>
             <Button
               type="submit"
               className="rounded px-4 py-2 text-white"
-              disabled={isSubmitLoading}
-              aria-disabled={isSubmitLoading}
+              disabled={isSubmitLoading || loading}
+              aria-disabled={isSubmitLoading || loading}
               loading={isSubmitLoading}
             >
               {isSubmitLoading ? (

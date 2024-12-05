@@ -9,6 +9,7 @@ interface ICommon {
 interface LoginState extends ICommon {
   isAuthenticated: boolean;
   message: string;
+  error?: boolean;
 }
 
 /**
@@ -22,7 +23,9 @@ interface LoginState extends ICommon {
  * @returns A Promise that resolves with an object containing an isAuthenticated boolean property and a message property.
  */
 export const LoginAction = async (
-  state: LoginState | { status: number; body: { error: string } },
+  state:
+    | LoginState
+    | { status: number; body: { error: boolean; message: string } },
   data: FormData
 ): Promise<LoginState> => {
   try {
@@ -42,12 +45,14 @@ export const LoginAction = async (
 
     return {
       isAuthenticated,
-      message: !isAuthenticated ? 'Invalid Credentials' : ''
+      message: !isAuthenticated ? 'Invalid Credentials' : 'Login successful!',
+      error: !isAuthenticated
     };
   } catch (error) {
     console.log('Unexpected error in LoginAction:', error);
     return {
       isAuthenticated: false,
+      error: true,
       message: 'Failed to login',
       status: 500,
       body: { error: 'An unexpected error occurred' }
