@@ -56,7 +56,6 @@ const PostsTable = ({
   const searchQuery = searchParams.get('search') as string;
   const [currentPage, setCurrentPage] = useState(page);
   const [posts, setPosts] = useState<Array<IPost>>(filteredPosts);
-  console.log('🚀 ~ posts:', posts);
   const router = useCustomRouter();
   const [isPending, startTransition] = useTransition();
 
