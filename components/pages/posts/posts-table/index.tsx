@@ -28,9 +28,10 @@ const CreatePostModal = dynamic(() => import('./create-post-modal'), {
   loading: () => null
 });
 
+const PlusIcon = Icons['add'];
+const SparklesIcon = Icons['sparkles'];
 const ArrowLeftIcon = Icons['arrowLeft'];
 const ArrowRightIcon = Icons['arrowRight'];
-const PlusIcon = Icons['add'];
 
 const PostsTable = ({
   total,
@@ -120,9 +121,10 @@ const PostsTable = ({
               });
             }}
           >
-            <PlusIcon className="size-4" />
+            {/* <PlusIcon className="size-4" /> */}
+            <SparklesIcon />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Create Post
+              Create Post with AI
             </span>
           </Button>
           {createPostModal?.isOpen && <CreatePostModal />}

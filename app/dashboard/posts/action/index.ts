@@ -69,7 +69,7 @@ export async function GeneratePostBody(title: string) {
         { role: 'system', content: 'You are a helpful assistant.' },
         {
           role: 'user',
-          content: `Suggest 3 related blog post body based on the given title: "${title}". The body should be informative and engaging, consisting of 3-4 paragraphs. Format the response as a numbered list and without markdown or editor format.`
+          content: `Suggest Blog post body based on the given title: "${title}". The body should be informative and engaging, 1000 character. Format the response as paragraphs and without markdown or editor format.`
         }
       ],
       max_tokens: 500,

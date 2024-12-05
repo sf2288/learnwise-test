@@ -121,20 +121,24 @@ export default function CreatePostModal() {
             <div className="relative">
               <TextArea
                 required
-                rows={4}
+                rows={body ? 15 : 6}
                 id="body"
                 name="body"
                 className="w-full"
                 defaultValue={body}
+                disabled={loading}
               />
               <Button
                 type="button"
                 disabled={!title}
                 variant="secondary"
                 onClick={generateBody}
-                className="absolute right-4 top-2 z-50 size-5 bg-white p-0"
+                className="absolute right-4 top-2 z-50 size-6 border-0 bg-white p-0 hover:bg-white"
+                title={!title ? 'Write Your Post Title First.' : ''}
               >
-                <SparklesIcon className="text-indigo-700" />
+                <SparklesIcon
+                  className={`${loading ? 'animate-pulse' : ''} text-indigo-700`}
+                />
               </Button>
             </div>
             {loading ? (
