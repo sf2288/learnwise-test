@@ -35,7 +35,6 @@ export default function CreatePostModal() {
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
-  console.log('🚀 ~ CreatePostModal ~ body:', body);
   const [error, setError] = useState<string>('');
 
   /**
@@ -147,6 +146,7 @@ export default function CreatePostModal() {
             <div className="relative">
               <Input
                 required
+                autoFocus
                 id="title"
                 type="text"
                 name="title"

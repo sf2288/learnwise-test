@@ -34,7 +34,6 @@ const PostDetail = ({ post }: { post: IPost }) => {
   useClickOutside(titleInputRef, () => {
     if (isEditing) {
       handleUpdate();
-      setIsEditing(false); // Close editing mode
     }
   });
 
@@ -42,12 +41,11 @@ const PostDetail = ({ post }: { post: IPost }) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleUpdate();
-      setIsEditing(false); // Close editing mode
     }
   };
 
   const handleUpdate = () => {
-    if (post) {
+    if (post && title !== updatedPost.title) {
       setUpdatedPost({ ...post, title });
 
       addToast({
@@ -55,6 +53,9 @@ const PostDetail = ({ post }: { post: IPost }) => {
         title: 'Alert',
         message: 'Title updated successfully.'
       });
+      setIsEditing(false);
+    } else {
+      setIsEditing(false);
     }
   };
   const website = updatedPost?.user?.website;

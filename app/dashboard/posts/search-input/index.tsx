@@ -51,9 +51,10 @@ export function SearchInput({
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(
     Boolean(searchQuery) || false
   );
-  const searchInputRef = useRef<HTMLDivElement | null>(null);
+  const mainDivRef = useRef<HTMLDivElement | null>(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
-  useClickOutside(searchInputRef, () => {
+  useClickOutside(mainDivRef, () => {
     if (!Boolean(searchQuery)) setIsSearchVisible(false);
   });
 
@@ -62,6 +63,12 @@ export function SearchInput({
   }
 
   const debouncedSearch = useDebounce(search, delay);
+
+  useEffect(() => {
+    if (isSearchVisible) {
+      searchInputRef.current?.focus();
+    }
+  }, [isSearchVisible]);
 
   useEffect(() => {
     if (!isPending) {
@@ -104,7 +111,7 @@ export function SearchInput({
   }
 
   return (
-    <div className="relative space-y-1" ref={searchInputRef}>
+    <div className="relative space-y-1" ref={mainDivRef}>
       <SearchIcon
         className={`relative size-6 cursor-pointer text-muted-foreground ${
           isSearchVisible ? 'z-0' : 'z-50'
@@ -124,6 +131,7 @@ export function SearchInput({
             onClick={toggleSearch}
           />
           <Input
+            ref={searchInputRef}
             name={queryParamName}
             type="search"
             value={search}
