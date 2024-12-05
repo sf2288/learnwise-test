@@ -40,7 +40,7 @@ export function Breadcrumbs({
     <nav className="flex items-center space-x-2 text-sm text-gray-600">
       <ol className="flex items-center">
         <li className="flex items-center">
-          <CustomLink href={PAGES.HOME.url}>
+          <CustomLink href={PAGES.DASHBOARD.POSTS.url}>
             <HomeIcon />
           </CustomLink>
           <span className="mx-2">/</span>

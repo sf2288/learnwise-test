@@ -11,12 +11,9 @@ const publicRoutes = [
 ];
 
 /**
- * This middleware redirects users to the login page if they attempt to access a
- * protected route and are not authenticated. It also redirects users to the
- * dashboard if they are authenticated and try to access a public route.
- *
- * @param {NextRequest} request
- * @returns {Promise<NextResponse>}
+ * This middleware redirects users to the login page if they are not authenticated and try to access a protected route.
+ * If the user is authenticated and tries to access the homepage, they are redirected to the posts page.
+ * If the user is authenticated and tries to access a public route, they are redirected to the posts page.
  */
 export async function middleware(request: NextRequest) {
   const isAuthenticated = await getServerCookie(CONSTANTS.TOKEN_KEY_NAME);
@@ -31,7 +28,9 @@ export async function middleware(request: NextRequest) {
     }
 
     if (path === PAGES.HOME.url && isAuthenticated) {
-      return NextResponse.redirect(new URL(PAGES.LOGIN.url, request.nextUrl));
+      return NextResponse.redirect(
+        new URL(PAGES.DASHBOARD.POSTS.url, request.nextUrl)
+      );
     }
   }
 

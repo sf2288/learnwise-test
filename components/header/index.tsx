@@ -23,7 +23,7 @@ export default async function Header() {
       <Container>
         <div className="flex w-full items-center justify-between p-4">
           <CustomLink
-            href={PAGES.HOME.url}
+            href={PAGES.DASHBOARD.POSTS.url}
             className="flex items-center gap-2 text-base font-bold sm:text-xl md:text-2xl"
           >
             <LogoIcon />
