@@ -76,7 +76,6 @@ export default function CreatePostModal() {
         body,
         userId: 2
       };
-      //
       const res = await CreatePostAction(data);
 
       if (typeof createPostModal.onSubmitCallback === 'function') {

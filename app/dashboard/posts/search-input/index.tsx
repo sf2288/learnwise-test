@@ -131,6 +131,7 @@ export function SearchInput({
             onClick={toggleSearch}
           />
           <Input
+            autoComplete="off"
             ref={searchInputRef}
             name={queryParamName}
             type="search"
